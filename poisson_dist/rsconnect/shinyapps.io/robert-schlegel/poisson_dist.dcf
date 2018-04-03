@@ -1,0 +1,12 @@
+name: poisson_dist
+title: poisson_dist
+username:
+account: robert-schlegel
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 314554
+bundleId: 1300178
+url: https://robert-schlegel.shinyapps.io/poisson_dist/
+when: 1522774913.08779
+asMultiple: FALSE
+asStatic: FALSE

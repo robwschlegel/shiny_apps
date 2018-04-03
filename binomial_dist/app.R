@@ -1,14 +1,19 @@
+
+# Load libraries ----------------------------------------------------------
+
 library(shiny)
 library(miniUI)
 library(ggplot2)
 
-# Define UI
+
+# Define UI ---------------------------------------------------------------
+
 ui <- miniPage(
   
   # Application title
   miniTitleBar("Binomial Distribution"),
   
-  # Sidebar with sliders for distribution
+  # Bottom tab panel
   miniTabstripPanel(
     
     # Show a plot of the generated distribution
@@ -41,13 +46,12 @@ ui <- miniPage(
   )
 )
 
-# Define server logic required to draw a histogram
+
+# Define server  ----------------------------------------------------------
+
 server <- function(input, output) {
    
-  # Generate data first so it doesn't change with the radio button
-
-  
-  # Render plots based on choice
+# Render plots based on choice
    output$dist_plot <- renderPlot({
      
      # Setting the seed doesn't appear to work
@@ -72,15 +76,11 @@ server <- function(input, output) {
                # scale_x_continuous(expand = c(1,1)) +
                labs(x = "randomly generated normal data", fill = "Distribution")
       )
-      # draw the histogram with the specified number of bins
-      # ggplot(data = x) +
-      #   # geom_histogram()
-      #   geom_density(aes(x = data_1), colour = "grey40", fill = "salmon", adjust = 2) +
-      #   # scale_x_continuous(expand = c(1,1)) +
-      #   labs(x = "randomly generated data")
    })
 }
 
-# Run the application 
+
+# Run the application  ----------------------------------------------------
+
 shinyApp(ui = ui, server = server)
 
