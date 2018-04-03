@@ -14,12 +14,16 @@ ui <- miniPage(
   miniTitleBar("Poisson Distribution"),
   
   miniContentPanel(
-      numericInput("pois_l", "Expected Occurences:",
+      fillCol(flex = c(1, 3),
+        fillRow(numericInput("pois_l", "Expected Occurences:",
                    value = 10),
-      # numericInput("pois_k", "Observed:",
-      #                              value = 12)
-    plotOutput("dist_plot")
-                 )
+      sliderInput("pois_n", "Observations:",
+                  min = 1,
+                  max = 1000,
+                  value = 1000)),
+      plotOutput("dist_plot")
+      )
+  )
 )
 
 # Define server  ----------------------------------------------------------
@@ -32,15 +36,13 @@ server <- function(input, output) {
     # Create poisson distribution curve
     # x <- data.frame(data_1 = dpois(seq(0, input$pois_l*2, 1), lambda = input$pois_l),
     #                 k_val = seq(0, input$pois_l*2, 1))
-    x <- data.frame(data_1 = rpois(1000, lambda = input$pois_l))
+    x <- data.frame(data_1 = rpois(input$pois_n, lambda = input$pois_l))
     
     # generate random data based on input$XXX from ui.R
     ggplot(data = x, aes(x = data_1)) +
       geom_histogram(aes(y = ..density..), bins = 10) +
       geom_density(adjust = 2, colour = "red") +
-      # geom_point(colour = "grey40", fill = "salmon", shape = 21) +
-      # geom_point(data = x[input$pois_k,]+1, colour = "red", size = 3) +
-      labs(x = "observed occurrences", y = "probability")
+      labs(x = "observed occurrences")
   })
 }
 

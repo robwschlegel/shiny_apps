@@ -5,8 +5,8 @@ account: robert-schlegel
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 314430
-bundleId: 1299888
+bundleId: 1300237
 url: https://robert-schlegel.shinyapps.io/binomial_dist/
-when: 1522765602.48241
+when: 1522777818.76432
 asMultiple: FALSE
 asStatic: FALSE
