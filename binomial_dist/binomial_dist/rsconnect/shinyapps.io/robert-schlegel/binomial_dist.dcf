@@ -1,0 +1,12 @@
+name: binomial_dist
+title: binomial_dist
+username:
+account: robert-schlegel
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 314430
+bundleId: 1299888
+url: https://robert-schlegel.shinyapps.io/binomial_dist/
+when: 1522765602.48241
+asMultiple: FALSE
+asStatic: FALSE
