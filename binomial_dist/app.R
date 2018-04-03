@@ -40,12 +40,10 @@ server <- function(input, output) {
   # Render plots based on choice
   output$dist_plot <- renderPlot({
     
-    # Create poisson distribution curve
-    # x <- data.frame(data_1 = dpois(seq(0, input$pois_l*2, 1), lambda = input$pois_l),
-    #                 k_val = seq(0, input$pois_l*2, 1))
+    # Create binomial distribution curve
     x <- data.frame(data_1 = rbinom(input$binom_n, input$binom_size, input$binom_prob))
     
-    # generate random data based on input$XXX from ui.R
+    # Plot the generated curve
     ggplot(data = x, aes(x = data_1)) +
       geom_histogram(aes(y = ..density..), bins = 10) +
       geom_density(adjust = 2, colour = "red") +

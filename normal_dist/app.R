@@ -11,18 +11,22 @@ library(ggplot2)
 ui <- miniPage(
   
   # Application title
-  miniTitleBar("Continuous Uniform Distribution"),
+  miniTitleBar("Normal Distribution"),
   
   miniContentPanel(
     fillCol(flex = c(1, 3),
-            fillRow(sliderInput("unif_n", "Observations:",
+            fillRow(sliderInput("norm_n", "Observations:",
                                 min = 1,
                                 max = 1000,
                                 value = 500),
-                    sliderInput("unif_limits", "Limits:",
+                    sliderInput("norm_mean", "Mean:",
+                                min = 1,
+                                max = 100,
+                                value = 20),
+                    sliderInput("norm_sd", "SD:",
                                 min = 1,
                                 max = 10,
-                                value = c(3, 7))),
+                                value = 5)),
             plotOutput("dist_plot")
     )
   )
@@ -35,8 +39,8 @@ server <- function(input, output) {
   # Render plots based on choice
   output$dist_plot <- renderPlot({
     
-    # Create uniform distribution curve
-    x <- data.frame(data_1 = runif(input$unif_n, input$unif_limits[1], input$unif_limits[2]))
+    # Create normal distribution curve
+    x <- data.frame(data_1 = rnorm(input$norm_n, input$norm_mean, input$norm_sd))
     
     # Plot the generated curve
     ggplot(data = x, aes(x = data_1)) +
