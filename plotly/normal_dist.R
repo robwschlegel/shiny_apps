@@ -1,3 +1,4 @@
+# This script contains the code for an interactive normal distribution
 
 # Load libraries ----------------------------------------------------------
 
@@ -5,8 +6,6 @@ library(plotly)
 
 
 # Interactive figure ------------------------------------------------------
-
-# https://community.plot.ly/t/need-help-on-using-dropdown-to-filter/6596/2
 
 # Create base distributions
 norm_dat <- data.frame(dist = c(rnorm(10, 10, 1), rnorm(100, 10, 1), rnorm(1000, 10, 1),
@@ -19,8 +18,10 @@ norm_dat <- data.frame(dist = c(rnorm(10, 10, 1), rnorm(100, 10, 1), rnorm(1000,
                                 rnorm(10, 20, 3), rnorm(100, 20, 3), rnorm(1000, 20, 3),
                                 rnorm(10, 30, 3), rnorm(100, 30, 3), rnorm(1000, 30, 3)),
                        norm_group = paste(rep(c(rep("n = 10", 10), rep("n = 100", 100), rep("n = 1000", 1000)), 9),
-                                      rep(c(rep("m = 10", 1110), rep("m = 20", 1110), rep("m = 30", 1110)), 3),
-                                      c(rep("sd = 1", 3330), rep("sd = 2", 3330), rep("sd = 3", 3330))))
+                                          rep(c(rep("m = 10", 1110), rep("m = 20", 1110), rep("m = 30", 1110)), 3),
+                                          c(rep("sd = 1", 3330), rep("sd = 2", 3330), rep("sd = 3", 3330)), 
+                                          sep = ", "))
+
 # Create density curves
 norm_dens <- data.frame()
 for(i in 1:length(levels(norm_dat$norm_group))){
@@ -34,17 +35,17 @@ for(i in 1:length(levels(norm_dat$norm_group))){
 l <- list()
 for(i in 1:length(levels(norm_dat$norm_group))){
   l[[i]] <- list(method = "restyle",
-            args = list("transforms[0].value", unique(norm_dat$norm_group)[i]),
-            label = unique(norm_dat$norm_group)[i])
+                 args = list("transforms[0].value", unique(norm_dat$norm_group)[i]),
+                 label = unique(norm_dat$norm_group)[i])
 }
 
 # Run the figure
 p <- plot_ly(data = norm_dat, 
-          transforms = list(
-            list(type = 'filter',
-                 target = ~norm_group,
-                 operation = '=',
-                 value = unique(norm_dat$norm_group)[1]))) %>%
+             transforms = list(
+               list(type = 'filter',
+                    target = ~norm_group,
+                    operation = '=',
+                    value = unique(norm_dat$norm_group)[13]))) %>%
   add_histogram(x = ~dist, name = "Histogram") %>%
   add_boxplot(x = ~dist, yaxis = "y3", name = "Boxplot") %>% 
   add_trace(data = norm_dens, x = ~x, y = ~y, mode = "lines", fill = "tozeroy", 
@@ -53,10 +54,13 @@ p <- plot_ly(data = norm_dat,
               list(type = 'filter',
                    target = ~norm_group,
                    operation = '=',
-                   value = unique(norm_dat$norm_group)[1]))) %>%
-  layout(yaxis2 = list(overlaying = "y", zeroline = FALSE,
-              showline = FALSE, showticklabels = FALSE, showgrid = FALSE),
+                   value = unique(norm_dat$norm_group)[13]))) %>%
+  layout(title = "Normal distribution",
+         xaxis = list(title = "value"), 
+         yaxis = list(title = "count"),
+         yaxis2 = list(overlaying = "y", zeroline = FALSE,
+                       showline = FALSE, showticklabels = FALSE, showgrid = FALSE),
          yaxis3 = list(overlaying = "y"),
-    updatemenus = list(list(y = 1.2, x = 0.2, buttons = l)))
+         updatemenus = list(list(y = 1.05, x = 0.2, active = 12, buttons = l)))
 p
 
