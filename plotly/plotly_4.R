@@ -68,9 +68,9 @@ p
 #                        norm_mean = 5,
 #                        norm_sd = 1)
 
-norm_dat <- data.frame(norm_n = c(10,100),
-                       norm_mean = c(5,20),
-                       norm_sd = c(1,3))
+# norm_dat <- data.frame(norm_n = c(10,100),
+#                        norm_mean = c(5,20),
+#                        norm_sd = c(1,3))
 
 norm_dat <- data.frame(dist = c(rnorm(10, 10, 1), # Set 1
                                 rnorm(100, 10, 1),
@@ -103,12 +103,13 @@ norm_dat <- data.frame(dist = c(rnorm(10, 10, 1), # Set 1
                                       rep(c(rep("m = 10", 1110), rep("m = 20", 1110), rep("m = 30", 1110)), 3),
                                       c(rep("sd = 1", 3330), rep("sd = 2", 3330), rep("sd = 3", 3330))))
 
-norm_buttons <-  list()
+# Create all of the buttons
+l = list()
 for (i in 1:length(levels(norm_dat$norm_group))) {
-  ll = list(list(method = "restyle",
-                 args = list("transforms[0].value", unique(norm_dat$norm_group)[i]),
-                 label = unique(norm_dat$norm_group)[i])) 
-  norm_buttons[[i]] = ll
+  ll = list(method = "restyle",
+            args = list("transforms[0].value", unique(norm_dat$norm_group)[i]),
+            label = unique(norm_dat$norm_group)[i]) 
+  l[[i]] = ll
 }
 
 # Run the figure
@@ -133,26 +134,24 @@ p <- #norm_dat %>%
           #        operation = '=',
           #        value = unique(norm_dat$norm_sd)[1])
           )
-  ) %>%
+) %>%
   layout(
     updatemenus = list(
       list(
         y = 0.8,
-        buttons = norm_buttons
-      )
-    )
-  )
-          # list(
-          
-                     # list(method = "restyle",
-                     #      args = list("transforms[0].value", unique(norm_dat$norm_group)[1]),
-                     #      label = unique(norm_dat$norm_group)[1]),
-                     # list(method = "restyle",
-                     #      args = list("transforms[0].value", unique(norm_dat$norm_group)[2]),
-                     #      label = unique(norm_dat$norm_group)[2]),
-                     # list(method = "restyle",
-                     #      args = list("transforms[0].value", unique(norm_dat$norm_group)[3]),
-                     #      label = unique(norm_dat$norm_group)[3])))#,
+        buttons = l)))
+
+        # buttons = list(
+        #   
+        #              list(method = "restyle",
+        #                   args = list("transforms[0].value", unique(norm_dat$norm_group)[1]),
+        #                   label = unique(norm_dat$norm_group)[1]),
+        #              list(method = "restyle",
+        #                   args = list("transforms[0].value", unique(norm_dat$norm_group)[2]),
+        #                   label = unique(norm_dat$norm_group)[2]),
+        #              list(method = "restyle",
+        #                   args = list("transforms[0].value", unique(norm_dat$norm_group)[3]),
+        #                   label = unique(norm_dat$norm_group)[3])))))#,
       
       # list(
       #   y = 0.7,
